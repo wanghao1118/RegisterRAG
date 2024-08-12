@@ -8,7 +8,7 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="JLULLM",
-    author_email="none",
+    author_email="jlullm@163.com",
     url="https://github.com/Charon-ops/RegisterRAG",
     install_requires=[
         "chardet==5.2.0",

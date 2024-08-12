@@ -1,23 +1,17 @@
-# Register RAG
+# Register Rag
 
-<h4 align=center>
-<p>Quickly configure the RAG framework to meet your needs via JSON</p>
-</h4>
+💡Quickly configure the RAG framework to meet your needs via JSON💡
 
-## Category
+## Contents
 
-- [Register RAG](#register-rag)
-  - [Category](#category)
+- Register Rag
+  - [Contents](#contents)
   - [🔔 Updates](#-updates)
   - [🚀 Deploy](#-deploy)
-    - [Making the necessary modifications](#making-the-necessary-modifications)
-    - [Starting the Service](#starting-the-service)
-    - [Running in Detached Mode](#running-in-detached-mode)
-    - [Building Process](#building-process)
-    - [Starting Specific Services](#starting-specific-services)
-    - [Stopping the Service](#stopping-the-service)
+    - [📦 Install](#-install)
+    - [🚀 Quick Start](#-quick-start)
   - [📈 Usage](#-usage)
-  - [⚙️ Config](#️-config)
+  - [⚙️ Configuration](#️-configuration)
   - [❓ FAQ and Troubleshooting](#-faq-and-troubleshooting)
   - [🤝 Contribution Guide](#-contribution-guide)
   - [📚 More Documentation](#-more-documentation)
@@ -29,179 +23,89 @@
 
 ## 🚀 Deploy
 
-### Making the necessary modifications
+### 📦 Install
 
-Clone code from our repository
+There are two ways to install the package:
 
-```bash
-git clone https://github.com/Charon-ops/RegisterRAG.git
+1. From `pip`:
+
+   ``` bash
+   pip install register_rag
+   ```
+
+   If you want to use gpu, you should install `torch` with gpu support. More details can be found [here](https://pytorch.org/get-started/locally/).
+
+2. From source:
+
+   ```bash
+   git clone https://github.com/Charon-ops/RegisterRAG.git
+   cd RegisterRag
+   pip install -r requirements.txt
+   pytest tests/ # If you want to run tests through pytest
+   ```
+
+   Then, you can import the package in your code:
+
+   ```python
+    from register_rag import Pipeline
+   
+    pipeline = Pipeline("path/to/config.json")
+   
+    # More code here
+   ```
+
+### 🚀 Quick Start
+
+There is a simple frontend for the RAG framework. You can use the following command to start the frontend:
+
+```python
+from register_rag.dashboard import Dashboard
+
+dashboard = Dashboard()
+dashboard.lanuch()
 ```
 
-**Before launching the service, please modify the `docker-compose.yml` file according to your GPU configuration.** Our server is equipped with four graphics cards, and we have deployed all services except for the `zip` service on the third card. You will need to adjust the `NVIDIA_VISIBLE_DEVICES` setting to match the GPU configuration of your own computer.
+It is complex to configure the framework, so it is not aesthetic to configure the framework through the frontend.
 
-At the same time, you also need to **modify the mount point of the store service**. Specifically, change the `volumes` section in the `store` service to `path/to/your/data:/app/data`.
+A vue-based frontend is under development, and it will be released soon.
 
-### Starting the Service
+For developers, you can organize your code as follows:
 
-After making the necessary modifications, you can start the service using the `docker-compose.yml` file. If you haven't previously built the process, it will automatically build without any manual intervention required.
+```python
+from register_rag import Pipeline
 
-```bash
-cd docker
-docker-compose up
-cd ..
+pipeline = Pipeline("path/to/config.json")
+
+embedding_module = pipeline.embedding
+store_module = pipeline.store
+generation_module = pipeline.response_generator
+prompt_module = pipeline.prompt_generator
 ```
 
-Wait for the container to start successfully, register rag deployed successfully.
-
-### Running in Detached Mode
-
-If you prefer not to automatically attach to the container, you can add the `-d` parameter to run in detached mode. For example:
-
-```bash
-cd docker
-docker-compose up -d
-cd ..
-```
-
-### Building Process
-
-The building process involves downloading weights, which by default uses the [hf-mirror](https://hf-mirror.com/) repository. You can modify the `HF_ENDPOINT` setting in the Dockerfile to better suit your network conditions. Please note, due to the substantial size of the weights, this process might take some time.
-
-### Starting Specific Services
-
-If you prefer to start only certain services, use the command below:
-
-``` bash
-docker-compose up embedding
-```
-
-This will launch only the `embedding` service.
-
-### Stopping the Service
-
-When you need to stop the service, navigate to the Docker directory and execute the following command:
-
-```bash
-cd docker
-docker-compose down
-```
-
-This will terminate all running containers associated with the service.
+As designed, the `Pipeline` class will load the configuration file and initialize the corresponding modules. You can use these modules to build your own chatbot. For more details, please refer to the [wiki page](https://github.com/Charon-ops/RegisterRAG/wiki).
 
 ## 📈 Usage
 
-Install the required packages
+## ⚙️ Configuration
 
-```bash
-pip install -r requirments.txt
-```
+The configuration file is a JSON file that contains the following fields:
 
-If you want to customise your own RAG framework, you can configure it by modifying the app_register_config.json file. See the [Config](#️-config) section for details on configuring the fields in the json file.
+- `embedding`
 
-```bash
-vim app_register_config.json
-```
+- `store`
 
-Start the Register RAG service (default port is 8000)
+- `generation`
 
-```bash
-uvicorn service:service
-```
+- `prompt`: Optional
 
-More info about the API can be found [here](https://github.com/Charon-ops/RegisterRAG/wiki/Docker-Service).
-
-## ⚙️ Config
-
-Specific configuration details are detailed in the following demo code block. You can modify the name field and configure the corresponding args field correctly. Please refer to the config_reference.md file for the detailed field correspondences.
-
-```python
-{
-    "app_name": {
-        # config your repository database
-        "database": [
-            {
-                "name": "ann",
-                "args": {
-                    "router_path": "your service url" ,
-                    "port": "your service port"
-                }
-            }
-        ],
-        # config knowledge loader method
-        "loader": {
-            "name": "text",
-            "args": {}
-        },
-        # config the embedding method
-        "embedding": {
-            "name": "bge",
-            "args": {
-                "router_path": "your service url",
-                "port": "your service port"
-            }
-        },
-        # config the splitter method
-        "splitter": {
-            "name": "recursive",
-            "args": {
-                "chunk_size": 400
-            }
-        },
-        # config the web search method, this item can be an empty list
-        "websearch": [
-            {
-                "name": "arxiv",
-                "args": {}
-            },
-            {
-                "name": "baidu",
-                "args": {}
-            }
-        ],
-        # config the rerank method
-        "rerank": {
-            "name": "bge_normal",
-            "args": {
-                "router_path": "your service url",
-                "port": "your service port",
-                "path": "bge_normal_rerank"
-            }
-        },
-        # config the prompt generation template, args must be an empty dict
-        "prompt_gen": {
-            "name": "base",
-            "args": {}
-        },
-        # config the prompt zip method, it wil be tricked when the prompt is too long
-        "prompt_zip": {
-            "name": "llmlingua2",
-            "args": {
-                "router_path": "your service url",
-                "port": "your service port",
-                "path": "llmlingua2"
-            }
-        },
-        # config the chat model, it only supports the local model currently
-        "response_gen": {
-            "name": "llama3",
-            "args": {
-                "router_path": "your service url",
-                "port": "your service port"
-            }
-        }
-    }
-}
-```
+For more details, please refer to the [configuration](https://github.com/Charon-ops/RegisterRAG/wiki).
 
 ## ❓ FAQ and Troubleshooting
 
-- Startup failure: Check if the configuration in the `docker-compose.yml` file is correct.
-- Service not accessible: Ensure the service has started successfully and check the firewall settings.
-
 ## 🤝 Contribution Guide
 
-We welcome code contributions, bug reports, and feature suggestions. Please refer to the [Contribution Guide](https://github.com/Charon-ops/RegisterRAG).
+We welcome code contributions, bug reports, and feature suggestions. You can use GitHub issues and pull requests to contribute to this project. Or you can contact us via [email](mailto:jlullm@163.com).
 
 ## 📚 More Documentation
 
-For more detailed documentation, please see the [Project Wiki](https://github.com/Charon-ops/RegisterRAG/wiki).
+For more detailed documentation, please refer to the [wiki](https://github.com/Charon-ops/RegisterRAG/wiki).
