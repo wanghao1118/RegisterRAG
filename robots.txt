@@ -1,0 +1,5 @@
+
+User-agent:*
+Disallow:
+
+Sitemap: https://yumuzhihan.github.io/RegisterRagDocs/RegisterRagDocs/sitemap.xml
