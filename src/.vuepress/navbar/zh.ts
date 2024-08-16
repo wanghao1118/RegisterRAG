@@ -2,7 +2,12 @@ import { navbar } from "vuepress-theme-hope";
 
 export const zhNavbar = navbar([
   {
-    text: "快速开始",
+    text: "主页",
     link: "/zh/",
+  },
+  {
+    text: "快速开始",
+    link: "/zh/GetStarted/",
+    activeMatch: "^/zh/GetStarted/",
   },
 ]);

@@ -1,18 +1,32 @@
 import { sidebar } from "vuepress-theme-hope";
 
 export const enSidebar = sidebar({
-  "/": [
+  "/GetStarted": [
     {
       text: "Introduction",
-      link: "/",
+      link: "/GetStarted/",
     },
     {
       text: "Installation Guide",
-      link: "/InstallationGuide",
+      link: "/GetStarted/InstallationGuide",
     },
     {
       text: "Quick Start",
-      link: "/Quickstart",
+      link: "/GetStarted/Quickstart",
+    },
+    {
+      text: "Contribution Guide",
+      link: "/GetStarted/ContributionGuide",
+    },
+  ],
+  "/Guide": [
+    {
+      text: "Guide",
+      link: "/Guide/",
+    },
+    {
+      text: "Embedding",
+      link: "/Guide/Embedding",
     },
   ],
 });

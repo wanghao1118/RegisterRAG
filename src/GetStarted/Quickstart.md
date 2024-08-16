@@ -4,7 +4,7 @@ title: Quick Start
 description: Quick start of Register RAG
 ---
 
-In this part, you will learn how to configure Register RAG.
+In this part, you will learn how to build a basic Register RAG pipeline.
 
 Register RAG uses a json file to configure the whole pipeline. The configuration file is divided into several parts, including `embedding`, `store`, `generation` and `prompt`. There will be more parts in the future, such as `rerank`, `websearch`, etc.
 

@@ -4,11 +4,11 @@ import { enNavbar, zhNavbar } from "./navbar/index.js";
 import { enSidebar, zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
-  hostname: "https://yumuzhihan.github.io/RegisterRagDocs/",
+  hostname: "https://github.com/Charon-ops/RegisterRAG",
 
   author: {
-    name: "jlullm",
-    url: "https://mister-hope.com",
+    name: "JLULLM",
+    email: "jlullm@163.com",
   },
 
   iconAssets: "fontawesome-with-brands",
@@ -18,6 +18,8 @@ export default hopeTheme({
   repo: "Charon-ops/RegisterRAG",
 
   docsDir: "src",
+
+  docsBranch: "docs",
 
   locales: {
     "/": {
