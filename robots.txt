@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://yumuzhihan.github.io/RegisterRagDocs/RegisterRAG/sitemap.xml
+Sitemap: https://github.com/Charon-ops/RegisterRAG/RegisterRAG/sitemap.xml
