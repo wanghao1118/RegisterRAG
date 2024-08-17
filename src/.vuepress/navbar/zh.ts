@@ -10,4 +10,9 @@ export const zhNavbar = navbar([
     link: "/zh/GetStarted/",
     activeMatch: "^/zh/GetStarted/",
   },
+  {
+    text: "指南",
+    link: "/zh/Guide/",
+    activeMatch: "^/zh/Guide/",
+  },
 ]);

@@ -29,7 +29,7 @@ class EmbeddingConfig(BaseModel):
 
 - `embedding_type`: Specifies whether the embedding is local or remote.
 - `embedding_model_name_or_path`: The name or path of the embedding model. For remote types, this should be accessible from the remote server.
-- `embedding_model_device`: Specifies the device (CPU or CUDA) on which the model runs. For multiple GPUs, specify the GPU ID (e.g., cuda:0). It is recommended to set CUDA_VISIBLE_DEVICES before program execution.
+- `embedding_model_device`: Specifies the device (CPU or CUDA) on which the model runs. For multiple GPUs, specify the GPU ID (e.g., cuda:0).
 - `embedding_model_preload`: Determines whether to preload the model at program start. This setting is only valid for local embedding.
 - `embedding_remote_url`: The URL for the remote server, applicable only to remote embedding.
 - `embedding_remote_token`: An optional token for accessing the remote server, applicable only to remote embedding.

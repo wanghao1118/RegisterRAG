@@ -28,5 +28,18 @@ export const enSidebar = sidebar({
       text: "Embedding",
       link: "/Guide/Embedding",
     },
+    {
+      text: "Store",
+      link: "/Guide/Store",
+    },
+    {
+      text: "Generation",
+      link: "/Guide/Generation/",
+      collapsible: true,
+      children: [
+        { text: "Introduction", link: "/Guide/Generation/" },
+        { text: "Xinference", link: "/Guide/Generation/Xinference" },
+      ],
+    },
   ],
 });
